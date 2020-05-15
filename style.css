@@ -1,0 +1,28 @@
+.board {
+	height: 150px;
+	width: 150px;
+
+	list-style: none;
+	border: 2px solid black;
+	border-left: none;
+	border-bottom: none;
+}
+
+[data-value="1"],
+[data-value="2"],
+[data-value="3"] {
+	border-top: none;
+}
+
+[data-value="3"],
+[data-value="6"],
+[data-value="9"] {
+	border-right: none;
+}
+
+.row-1,
+.row-2,
+.row-3 {
+	display: flex;
+	margin: 0;
+}
