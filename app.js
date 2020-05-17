@@ -2,41 +2,36 @@ const container = document.querySelector('.container');
 
 const selectSquare = () => {
 	let target = event.target;
-
 	if (target.className === 'board') {
-		// console.dir(target);
 		human.selection.push(target.dataset.value);
-		target.textContent = 'O';
+		target.innerHTML = `<span>O</span>`;
 		removeItemSelected(parseInt(target.dataset.value));
 		computerSelection();
-		console.log(`human ${human.selection}`);
 		target.classList.add('selected');
-		console.dir(target);
 	}
-};
-
-const removeItemSelected = (item) => {
-	console.log(`remove ${item}`);
-	let index = board.boardItems.indexOf(item);
-	if (index > -1) {
-		board.boardItems.splice(index, 1);
-	}
-	console.log(board.boardItems);
 };
 
 const computerSelection = () => {
 	let choices = document.querySelectorAll('.board');
+	// select a random item from the board
 	var randomPick = board.boardItems[Math.floor(Math.random() * board.boardItems.length)];
 
+	// push the selected item to AI selection and remove from the main board
 	[ ...choices ].filter((choice) => {
 		if (choice.dataset.value.includes(randomPick)) {
-			console.log(choice);
-			choice.textContent = 'X';
 			ai.selection.push(choice.dataset.value);
-			console.log(`AI ${ai.selection}`);
+			choice.innerHTML = `<span>X</span>`;
+			removeItemSelected(parseInt(choice.dataset.value));
 			choice.classList.add('selected');
 		}
 	});
+};
+
+const removeItemSelected = (item) => {
+	let index = board.boardItems.indexOf(item);
+	if (index > -1) {
+		board.boardItems.splice(index, 1);
+	}
 };
 
 const players = (name) => {
@@ -49,7 +44,6 @@ const board = {
 };
 
 container.addEventListener('click', selectSquare);
-
 const human = players('human');
 const computer = players('ai');
 const ai = players('ai');

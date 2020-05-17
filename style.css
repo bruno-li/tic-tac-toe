@@ -1,11 +1,18 @@
 .board {
+	display: flex;
 	height: 150px;
 	width: 150px;
-
 	list-style: none;
-	border: 2px solid black;
+	border: 3px solid black;
 	border-left: none;
 	border-bottom: none;
+}
+
+.board span {
+	display: block;
+	color: red;
+	margin: 0 auto;
+	font-size: 120px;
 }
 
 .selected {
@@ -29,4 +36,5 @@
 .row-3 {
 	display: flex;
 	margin: 0;
+	justify-content: center;
 }
