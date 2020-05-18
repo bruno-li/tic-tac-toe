@@ -1,13 +1,25 @@
 const container = document.querySelector('.container');
+let winning = [
+	[ '1', '2', '3' ],
+	[ '4', '5', '6' ],
+	[ '7', '8', '9' ],
+	[ '1', '4', '7' ],
+	[ '2', '5', '8' ],
+	[ '3', '6', '9' ],
+	[ '1', '5', '9' ],
+	[ '3', '5', '7' ]
+];
 
 const selectSquare = () => {
 	let target = event.target;
+
 	if (target.className === 'board') {
 		human.selection.push(target.dataset.value);
 		target.innerHTML = `<span>O</span>`;
 		removeItemSelected(parseInt(target.dataset.value));
 		computerSelection();
 		target.classList.add('selected');
+		if (checkWinner()) console.log('win');
 	}
 };
 
@@ -27,6 +39,7 @@ const computerSelection = () => {
 	});
 };
 
+// remove the selected item from board
 const removeItemSelected = (item) => {
 	let index = board.boardItems.indexOf(item);
 	if (index > -1) {
@@ -34,6 +47,9 @@ const removeItemSelected = (item) => {
 	}
 };
 
+const checkWinner = () => {
+	return winning.some((winningArray) => winningArray.every((e) => human.selection.includes(e)));
+};
 const players = (name) => {
 	const selection = [];
 	return { name, selection };
