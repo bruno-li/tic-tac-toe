@@ -12,14 +12,17 @@ let winning = [
 
 const selectSquare = () => {
 	let target = event.target;
-
 	if (target.className === 'board') {
 		human.selection.push(target.dataset.value);
 		target.innerHTML = `<span>O</span>`;
 		removeItemSelected(parseInt(target.dataset.value));
 		computerSelection();
 		target.classList.add('selected');
-		if (checkWinner()) console.log('win');
+
+		if (checkWinner()) {
+			alert('Player Wins!');
+			restart();
+		}
 	}
 };
 
@@ -35,6 +38,10 @@ const computerSelection = () => {
 			choice.innerHTML = `<span>X</span>`;
 			removeItemSelected(parseInt(choice.dataset.value));
 			choice.classList.add('selected');
+			if (checkComputerWin()) {
+				alert('Computer Wins!');
+				restart();
+			}
 		}
 	});
 };
@@ -49,6 +56,22 @@ const removeItemSelected = (item) => {
 
 const checkWinner = () => {
 	return winning.some((winningArray) => winningArray.every((e) => human.selection.includes(e)));
+};
+
+const checkComputerWin = () => {
+	return winning.some((winningArray) => winningArray.every((e) => ai.selection.includes(e)));
+};
+const restart = () => {
+	let choices = document.querySelectorAll('.board');
+	choices.forEach((field) => {
+		// console.dir(field.firstChild);
+		if (field.firstChild) {
+			console.log(field.firstChild.textContent);
+			field.firstChild.textContent = '';
+			human.selection = [];
+			ai.selection = [];
+		}
+	});
 };
 const players = (name) => {
 	const selection = [];
